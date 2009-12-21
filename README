@@ -15,55 +15,28 @@ A flexible prototype/scriptaculous autocompleter JSON API designed to integrate 
   - script/generate autocompleter_server
       produces => config/initializers/autocompleter_server.rb
 
-  - Register the resources inside the initializer. 
+  - Register the resources inside the initializer in the above file.
      -- This will require:
          - An ActiveRecord Model.
          - A Controller to expose said model.
-=== Verify Install ===
-  - Assuming:
-  
-config.resource Thing, :defaults => {
-  :uniq_column_name              => Thing.primary_key,
-  :possible_column_names         => Thing.column_names, 
-  :columns_to_show               => Thing.column_names,
-  :max_results                   => 25,
-  :min_full_text_search_q_length => 3,
-  :full_text_index               => 'autocompleter_full_text_index'
-},
-:exposed_in => [ThingsController]
 
+  - The example code is in config/initializers/autocompleter_server.rb
+    Go there.
 
-  - Given params[:q] = "my thing search"
-    Than (in the console:
-
-  @things = Thing.autocompleter_find(params[:q])
-  => ...an array of active record models...
-  @things.first.respond_to? :to_autocompleter_json
-  => true
-  ThingsController.instance_methods.grep /autocompleter/
-  => TODO
-  TODO: Routes
-  TODO: Views
 === Integration with AutocompleterClient ===
   - run `rake routes`
 
-  - The only piece of information need from here is the route to which the model is exposed.
-    Simply run rake routes. Looking towards the top, you should see some autocompleter_submit paths.  This is the URL the autocompleter will submit queries to, it returns JSON the autocompleter_client digests.  Point your autocompleter_client's at this.
+  - find the ones called autocompleter_submit, this is the method your autocompleter_client
+    should point at.
 
-Config
-======
-* see config/initializers/autocompleter_server.rb after running script/generate autocompleter_server for examples
-
-Additional Customizations
-======
-
+=== Additional Customizations ===
 Inside the exposed in controller, you can define:
 
   - autocompleter_append_where_sql_snippet
-       Expected to return a conditions array usuable by ActiveRecord.
+       Expected to return a conditions array usable by ActiveRecord.
 
   - autocompleter_append_from_sql_snippet
-       Expected to return a from string usuable by ActiveRecord.
+       Expected to return a from string usable by ActiveRecord.
 
 Javascript Extensions
 =======
