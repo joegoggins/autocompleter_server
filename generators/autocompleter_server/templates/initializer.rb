@@ -50,4 +50,11 @@ AutocompleterServer.configure do |config|
   #  -full_text_index
   #     -Name of the full_text_index the autocompleter will match against by default.
   #   
+  
+  
+  
+  
+  # YOUR CODE GOES HERE.  copy the example above and give it a shot.
+  
+  
 end
