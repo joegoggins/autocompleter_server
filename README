@@ -1,0 +1,73 @@
+AutocompleterServer
+===================
+
+=== What is it? ===
+A flexible prototype/scriptaculous autocompleter JSON API designed to integrate with the autocompleter_client plugin.
+
+=== What it does? ===
+  - Injects functionality into Routes, Models, Views, and Controllers necessary for autocompleter client's to function.
+
+  - Centralizes all configuration associated with autocompleter operation through the app to an initializer file.
+
+=== Install ===
+  - git clone autocompleter_server into vendor/plugins
+
+  - script/generate autocompleter_server
+      produces => config/initializers/autocompleter_server.rb
+
+  - Register the resources inside the initializer. 
+     -- This will require:
+         - An ActiveRecord Model.
+         - A Controller to expose said model.
+=== Verify Install ===
+  - Assuming:
+  
+config.resource Thing, :defaults => {
+  :uniq_column_name              => Thing.primary_key,
+  :possible_column_names         => Thing.column_names, 
+  :columns_to_show               => Thing.column_names,
+  :max_results                   => 25,
+  :min_full_text_search_q_length => 3,
+  :full_text_index               => 'autocompleter_full_text_index'
+},
+:exposed_in => [ThingsController]
+
+
+  - Given params[:q] = "my thing search"
+    Than (in the console:
+
+  @things = Thing.autocompleter_find(params[:q])
+  => ...an array of active record models...
+  @things.first.respond_to? :to_autocompleter_json
+  => true
+  ThingsController.instance_methods.grep /autocompleter/
+  => TODO
+  TODO: Routes
+  TODO: Views
+=== Integration with AutocompleterClient ===
+  - run `rake routes`
+
+  - The only piece of information need from here is the route to which the model is exposed.
+    Simply run rake routes. Looking towards the top, you should see some autocompleter_submit paths.  This is the URL the autocompleter will submit queries to, it returns JSON the autocompleter_client digests.  Point your autocompleter_client's at this.
+
+Config
+======
+* see config/initializers/autocompleter_server.rb after running script/generate autocompleter_server for examples
+
+Additional Customizations
+======
+
+Inside the exposed in controller, you can define:
+
+  - autocompleter_append_where_sql_snippet
+       Expected to return a conditions array usuable by ActiveRecord.
+
+  - autocompleter_append_from_sql_snippet
+       Expected to return a from string usuable by ActiveRecord.
+
+Javascript Extensions
+=======
+Extending javascript files, must have the file name be the name of the class.
+
+Authors: Joe Goggins, Matt Vermaak, Pete Leonhardt
+Copyright (c) 2009 released under the MIT license
