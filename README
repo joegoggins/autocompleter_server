@@ -1,14 +1,5 @@
 AutocompleterServer
 ===================
-
-=== What is it? ===
-A flexible prototype/scriptaculous autocompleter JSON API designed to integrate with the autocompleter_client plugin.
-
-=== What it does? ===
-  - Injects functionality into Routes, Models, Views, and Controllers necessary for autocompleter client's to function.
-
-  - Centralizes all configuration associated with autocompleter operation through the app to an initializer file.
-
 === Install ===
   - git clone autocompleter_server into vendor/plugins
 
@@ -22,6 +13,14 @@ A flexible prototype/scriptaculous autocompleter JSON API designed to integrate 
 
   - The example code is in config/initializers/autocompleter_server.rb
     Go there.
+
+=== What is it? ===
+A flexible prototype/scriptaculous autocompleter JSON API designed to integrate with the autocompleter_client plugin.
+
+=== What it does? ===
+  - Injects functionality into Routes, Models, Views, and Controllers necessary for autocompleter client's to function.
+
+  - Centralizes all configuration associated with autocompleter operation through the app to an initializer file.
 
 === Integration with AutocompleterClient ===
   - run `rake routes`

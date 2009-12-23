@@ -53,8 +53,20 @@ AutocompleterServer.configure do |config|
   
   
   
-  
-  # YOUR CODE GOES HERE.  copy the example above and give it a shot.
+  # YOUR CODE GOES HERE.  un-comment this or copy the example above and give it a shot.
+=begin
+  config.resource User, 
+    :defaults => {
+    :uniq_column_name              => User.primary_key,
+    :possible_column_names         => User.column_names, 
+    :columns_to_show               => %w(name email description),
+    :max_results                   => 25,
+    :min_full_text_search_q_length => 3,
+    :full_text_index               => 'autocompleter_full_text_index'
+  },
+  :exposed_in => [UsersController]
+
+=end  
   
   
 end
